@@ -8,8 +8,7 @@ import {
   Mountebank,
   Stub,
   EqualPredicate,
-  HttpMethod,
-  NotFoundResponse,
+  HttpMethod
 } from "@anev/ts-mountebank";
 
 describe("API Contract Test", () => {
@@ -51,6 +50,7 @@ describe("API Contract Test", () => {
             new EqualPredicate()
               .withMethod(HttpMethod.GET)
               .withPath("/api/v1/categories")
+              .withHeader('baseSiteId', 'CTR')
           )
           .withResponse(
             new Response().withStatusCode(200).withJSONBody(categoriesResponse)
@@ -75,13 +75,13 @@ describe("API Contract Test", () => {
             .withPredicate(
               new EqualPredicate()
                 .withMethod(HttpMethod.GET)
-                .withPath("/api/v1/category/DC0000001")
+                .withPath("/api/v1/categories/DC0000001")
+                .withHeader('baseSiteId', 'CTR')
             )
             .withResponse(
               new Response().withStatusCode(200).withJSONBody(categoryResponse)
             )
-        )
-        .withStub(new Stub().withResponse(new NotFoundResponse()));
+        );
 
       await mb.createImposter(imposter);
     });
@@ -93,12 +93,5 @@ describe("API Contract Test", () => {
       // Assert - did we get the expected response
       expect(category).toStrictEqual(categoryResponse);
     });
-
-    // test("product does not exist", async () => {
-    //   // Act + Assert
-    //   await expect(api.getProduct("11")).rejects.toThrow(
-    //     "Request failed with status code 404"
-    //   );
-    // });
   });
 });

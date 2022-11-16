@@ -22,12 +22,24 @@ export class CategoryApiClient {
   }
 
   async getCategories() {
-    return axios
-      .get(this.withPath("/api/v1/categories")).then(r => r.data);
+    const url = this.withPath("/api/v1/categories");
+    return axios({
+      url,
+      method: "GET",
+      headers: {
+        baseSiteId: "CTR",
+      },
+    }).then((r) => r.data);
   }
 
   async getCategoryById(id) {
-    return axios
-      .get(this.withPath("/api/v1/category/" + id)).then(r => r.data);
+    const url = this.withPath("/api/v1/categories/" + id);
+    return axios({
+      url,
+      method: "GET",
+      headers: {
+        baseSiteId: "CTR",
+      },
+    }).then((r) => r.data);
   }
 }
