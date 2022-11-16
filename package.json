@@ -1,0 +1,25 @@
+{
+  "name": "consumer-2",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.21.1",
+    "jest": "^27.5.1"
+  },
+  "scripts": {
+    "test": "jest",
+    "publish": "pact-broker publish ./pacts --broker-base-url https://cantirecorp.pactflow.io --broker-token 2JBH9Z8tsLyEVqwZSMyi2g --consumer-app-version=1.0.0 --auto-detect-version-properties",
+    "can-i-deploy": "pact-broker can-i-deploy --broker-base-url https://cantirecorp.pactflow.io --broker-token 2JBH9Z8tsLyEVqwZSMyi2g --pacticipant sample-consumer-2 --version=1.0.0 --to-environment production",
+    "deploy": "pact-broker record-deployment --pacticipant sample-consumer-2 --version 1.0.0 --environment production",
+    "generate-pacts": "node ./node_modules/@cantire-corp/cds.lib.generate-pacts-from-swagger/index.js"
+  },
+  "devDependencies": {
+    "@anev/ts-mountebank": "^1.4.1",
+    "@babel/core": "^7.17.5",
+    "@babel/preset-env": "^7.16.11",
+    "@pact-foundation/pact-core": "^13.4.1-beta.18",
+    "mkdirp": "^1.0.4",
+    "mountebank": "^2.6.0",
+    "wait-port": "^0.2.9"
+  }
+}
